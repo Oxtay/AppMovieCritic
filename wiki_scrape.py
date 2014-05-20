@@ -163,7 +163,7 @@ def grabPage(url, name, db_file, url_save, remove_commons):
                         del c[key]
         for word, count in c.most_common(40):
                 cursor.execute("INSERT INTO words_count (word, occurrence_count)\
-                              SELECT (?), (?)", (re.sub('[–{@#!;+=_,$<(^)>?.:%/&}''"''-]', '', word.lower()), count))
+                              SELECT (?), (?)", (re.sub(r'[-{@#!;+=_,$<(^)>?.:%/&}''"''-]', '', word.lower()), count))
         #delete numerical characters, NULLs and empty spaces
         cursor.execute("DELETE FROM words_count WHERE word glob '[0-9]*' or word ='' or word IS NULL")
         #delete duplicate records where the same word is repeated more then once
